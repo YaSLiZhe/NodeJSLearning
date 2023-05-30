@@ -64,10 +64,23 @@ exports.protect = catchAsync(async (req, res, next) => {
   //Promisify helps convert call-back based asynchronous into a promise based function
   //if directly use const decoded = jwy.verify will block
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  console.log(decoded);
+
   // 3) Check if User is still exist
+  const currentUser = await User.findById(decoded.id);
+  if (!currentUser) {
+    return next(
+      new AppError('The user belonging to this token does no longer exist')
+    );
+  }
 
   // 4) Check if user changed password after the token is issued
+  if (currentUser.changedPasswordAfter(decoded.iat)) {
+    return next(
+      new AppError('User recently changed password! Please login again', 401)
+    );
+  }
 
+  //GRANT ACCESS TO PROTECTED ROUTE
+  req.user = currentUser;
   next();
 });
