@@ -6,7 +6,7 @@ To run this project, you need to set up the following environment variables in t
 
 ### MongoDB Configuration
 
-- `DATABASE`: The MongoDB connection string for the production environment.
+- `DATABASE`: The MongoDB connection string for ALias.
 - `DATABASE_LOCAL`: The MongoDB connection string for the local development environment.
 - `DATABASE_PASSWORD`: The password for the MongoDB database.
 
