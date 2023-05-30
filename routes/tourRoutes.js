@@ -18,7 +18,11 @@ router
 
 router
   .route('/:id')
-  .delete(tourController.deleteTour)
+  .delete(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.deleteTour
+  )
   .get(tourController.getTourById)
   .patch(tourController.updateTour);
 
