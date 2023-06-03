@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+const User = require('./userModel');
 // const validator = require('validator');
 
 const tourSchema = new mongoose.Schema(
@@ -26,8 +27,8 @@ const tourSchema = new mongoose.Schema(
       type: String,
       required: [true, 'A tour must have a difficulty'],
       enum: {
-        values: ['easy', 'medium', 'difficulty'],
-        message: 'Difficulty is either easy, medium and difficulty',
+        values: ['easy', 'medium', 'difficult'],
+        message: 'Difficulty is either easy, medium and difficult',
       },
     },
     ratingsAverage: {
@@ -77,6 +78,31 @@ const tourSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    startLocation: {
+      //GeoJSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
+    guides: Array,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
@@ -89,7 +115,12 @@ tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lowercase: true });
   next();
 });
-
+tourSchema.pre('save', async function (next) {
+  //embedding guidesById
+  const guidesPromise = this.guides.map(async (id) => await User.findById(id));
+  this.guides = await Promise.all(guidesPromise);
+  next();
+});
 //QUERY MIDDLEWARE
 // tourSchema.pre('find', function (next) {
 tourSchema.pre(/^find/, function (next) {
