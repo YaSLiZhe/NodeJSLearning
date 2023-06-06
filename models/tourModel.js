@@ -143,6 +143,14 @@ tourSchema.pre(/^find/, function (next) {
 //   console.log(doc);
 //   next();
 // });
+tourSchema.pre(/^find/, function (next) {
+  this.populate({
+    //populate to get associated data
+    path: 'guides',
+    select: '-__v -passwordChangedAt',
+  });
+  next();
+});
 
 //AGGRAGATION MIDDLEWARE
 tourSchema.pre('aggregate', function (next) {

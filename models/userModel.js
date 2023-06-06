@@ -49,6 +49,7 @@ const userSchma = new mongoose.Schema({
     default: true,
     select: false,
   },
+  reviews: [{ type: mongoose.Schema.ObjectId, ref: 'Review' }],
 });
 userSchma.pre('save', async function (next) {
   //Only run this function  if password was actually modified
