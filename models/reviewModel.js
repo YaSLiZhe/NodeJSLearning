@@ -35,14 +35,19 @@ const reviewSchema = new mongoose.Schema(
 );
 
 reviewSchema.pre(/^find/, function (next) {
+  // this.populate({
+  //   //populate to get associated data
+  //   path: 'tour',
+  //   options: { select: 'name _id' }, // <-- wrap `select` in `options` here...
+  // }).populate({
+  //   //populate to get associated data
+  //   path: 'user',
+  //   options: { select: 'name' }, // <-- wrap `select` in `options` here...
+  // });
   this.populate({
     //populate to get associated data
-    path: 'tour',
-    select: 'name -_id',
-  }).populate({
-    //populate to get associated data
     path: 'user',
-    select: 'name',
+    options: { select: 'name' }, // <-- wrap `select` in `options` here...
   });
   next();
 });
