@@ -21,7 +21,10 @@ output: [ 'name', 'email', 'city' ]
   });
   return newObj;
 };
-
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
 exports.updateMe = catchAsync(async (req, res, next) => {
   //1) Create Error if user POSTS password data
   if (req.body.password || req.body.passwordConfirm) {
