@@ -40,5 +40,7 @@ router
     authController.restrictTo('admin', 'lead-guide'),
     tourController.updateTour
   );
-
+router
+  .route('/tours-within/:distance/center/:latlng/unit/:unit')
+  .get(tourController.getToursWithIn);
 module.exports = router;
