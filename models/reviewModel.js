@@ -48,7 +48,7 @@ reviewSchema.pre(/^find/, function (next) {
   this.populate({
     //populate to get associated data
     path: 'user',
-    options: { select: 'name' }, // <-- wrap `select` in `options` here...
+    options: { select: 'name photo' }, // <-- wrap `select` in `options` here...
   });
   next();
 });

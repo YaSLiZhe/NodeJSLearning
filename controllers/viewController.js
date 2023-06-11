@@ -10,6 +10,16 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   // 3) Render that template using tour data from 1
   res.status(200).render('overview', { tour: 'All Tours', tours });
 });
-exports.getTour = (req, res) => {
-  res.status(200).render('tour', { tour: 'The Foresr Hiker tour' });
-};
+exports.getTour = catchAsync(async (req, res) => {
+  // 1) Get tour data from collection
+
+  const tour = await Tour.findOne({ slug: req.params.slug }).populate({
+    path: 'reviews',
+    fields: 'review rating user',
+  });
+
+  // 2) Build the template
+
+  // 3) Render that template using tour data from 1
+  res.status(200).render('tour', { title: 'The Foresr Hiker tour', tour });
+});
