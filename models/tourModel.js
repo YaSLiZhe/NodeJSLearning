@@ -132,7 +132,7 @@ tourSchema.virtual('reviews', {
 });
 //DOCUMENT MIDDLEWARE
 tourSchema.pre('save', function (next) {
-  this.slug = slugify(this.name, { lowercase: true });
+  this.slug = slugify(this.name, { lower: true });
   next();
 });
 // tourSchema.pre('save', async function (next) {
