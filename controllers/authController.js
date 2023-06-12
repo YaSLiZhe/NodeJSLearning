@@ -27,7 +27,7 @@ const createSendToken = (user, statusCode, res) => {
   user.password = undefined;
   res.status(statusCode).json({
     token,
-    status: 'sucess',
+    status: 'success',
     user: user,
   });
 };
@@ -43,17 +43,19 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  //1) Check if email and password exists
+
+  // 1) Check if email and password exist
   if (!email || !password) {
     return next(new AppError('Please provide email and password!', 400));
   }
-  //2)Check if email and password are correct
+  // 2) Check if user exists && password is correct
   const user = await User.findOne({ email }).select('+password');
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email or password', 401));
   }
-  //3) If everything is OK, send token to client
+
+  // 3) If everything ok, send token to client
   createSendToken(user, 200, res);
 });
 
@@ -65,6 +67,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
 
   if (!token) {
@@ -96,7 +100,34 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = currentUser;
   next();
 });
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+  // 1) Getting token and check if it's there
+  if (req.cookies.jwt) {
+    // 2) Varification token
+    //Promisify helps convert call-back based asynchronous into a promise based function
+    //if directly use const decoded = jwy.verify will block
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
 
+    // 3) Check if User is still exist
+    const currentUser = await User.findById(decoded.id);
+    if (!currentUser) {
+      return next();
+    }
+
+    // 4) Check if user changed password after the token is issued
+    if (currentUser.changedPasswordAfter(decoded.iat)) {
+      return next();
+    }
+
+    //GRANT ACCESS TO PROTECTED ROUTE
+    res.locals.user = currentUser;
+    return next();
+  }
+  next();
+});
 //roles['admin','user']
 exports.restrictTo =
   (...roles) =>
