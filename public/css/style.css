@@ -67,6 +67,42 @@ body {
   margin: 0 auto;
 }
 
+.popup {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  max-width: 200px;
+  padding: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.popup-header {
+  background-color: #007bff;
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  padding: 8px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.popup-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.popup-body {
+  margin: 0;
+  padding: 0;
+}
+
+.popup-body p {
+  margin-bottom: 5px;
+}
+
 .ma-bt-md {
   margin-bottom: 3rem !important;
 }

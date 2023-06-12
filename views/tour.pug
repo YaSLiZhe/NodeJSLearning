@@ -1,6 +1,10 @@
 extends base
 include _reviewCard
-            
+
+block append header 
+    script(src='https://cdn.jsdelivr.net/npm/ol@7.4.0/dist/ol.js')
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css')
+    
 mixin overviewBoxDetail(icon, label, text)
     .overview-box__detail
         svg.overview-box__icon
@@ -62,9 +66,9 @@ block content
                 img.picture-box__img(src=`/img/tours/${img}`, alt=`The Park Camper Tour ${i+1}`,class=`picture-box__img--${i+1}`)
 
     section.section-map
-        #map
+        #map(data-locations=`${JSON.stringify(tour.locations)}`)
 
-    section.section-reviews
+    section.section-reviews 
         .reviews
             each review in tour.reviews
                 +reviewCard(review)

@@ -21,7 +21,10 @@ app.set('views', path.join(__dirname, 'views'));
 
 //1) Gobal MIDDLEWARES
 // Set security HTTP header
-app.use(helmet());
+app.use(
+  helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false })
+);
+
 // Reaing data from a file and storing it in a variable
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -38,7 +41,6 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-app.use(helmet());
 // Parse incoming JSON data
 app.use(express.json({ limit: '10kb' }));
 
