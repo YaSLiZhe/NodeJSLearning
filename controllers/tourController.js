@@ -3,6 +3,8 @@ const Tour = require('../models/tourModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const factory = require('./handlerFactory');
+const multer = require('multer');
+const sharp = require('sharp');
 //Checking JSON file ID, which is not suitable for database
 // const tours = JSON.parse(
 //   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
@@ -28,6 +30,51 @@ const factory = require('./handlerFactory');
 //   }
 //   next();
 // };
+
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else cb(new AppError('Not a image! please upload image', 400), false);
+};
+
+const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+
+exports.uploadTourImages = upload.fields([
+  { name: 'imageCover', maxCount: 1 },
+  { name: 'images', maxCount: 3 },
+]);
+
+exports.resizeImages = catchAsync(async (req, res, next) => {
+  if (!req.files.imageCover || !req.files.images) return next();
+
+  //Cover image
+  req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
+  await sharp(req.files.imageCover[0].buffer)
+    .resize(2000, 1333)
+    .toFormat('jpeg')
+    .jpeg({ quality: 90 })
+    .toFile(`public/img/tours/${req.body.imageCover}`);
+
+  // Images
+  req.body.images = [];
+  console.log('file:', req.files.images);
+  await Promise.all(
+    req.files.images.map(async (file, i) => {
+      const filename = `tour-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
+
+      await sharp(file.buffer)
+        .resize(2000, 1333)
+        .toFormat('jpeg')
+        .jpeg({ quality: 90 })
+        .toFile(`public/img/tours/${filename}`);
+      req.body.images.push(filename);
+    })
+  );
+
+  next();
+});
 
 exports.aliasTopTours = (req, res, next) => {
   req.query.limit = '5';
@@ -120,7 +167,6 @@ exports.getToursWithIn = catchAsync(async (req, res, next) => {
       )
     );
   }
-  console.log(distance, lat, lng, unit, radius);
   const tours = await Tour.find({
     startLocation: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
   });
