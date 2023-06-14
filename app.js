@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 // Creating an instance of express app
 const tourRouter = require('./routes/tourRoutes');
@@ -24,6 +25,12 @@ app.set('views', path.join(__dirname, 'views'));
 // Set security HTTP header
 app.use(
   helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false })
+);
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000', // Replace with the origin of your frontend application
+  })
 );
 
 // Reaing data from a file and storing it in a variable
