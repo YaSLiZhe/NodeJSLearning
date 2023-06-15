@@ -38,7 +38,7 @@ if (userDataForm) {
   userDataForm.addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent form submission
     const form = new FormData();
-    console.log(form);
+
     form.append('email', document.getElementById('email').value);
     form.append('name', document.getElementById('name').value);
     form.append('photo', document.getElementById('photo').files[0]);

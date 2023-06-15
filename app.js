@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const compression = require('compression');
 
 // Creating an instance of express app
 const tourRouter = require('./routes/tourRoutes');
@@ -71,9 +72,11 @@ app.use(
   })
 );
 
+app.use(compression());
+
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  console.log('hello from zhe');
+  // console.log('hello from zhe');
   next();
 });
 
