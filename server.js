@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+process.on('uncaughtException', (err) => {
+  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  console.log(err.name, err.message);
+  process.exit(1);
+});
+
 dotenv.config({ path: './config.env' });
 const app = require('./app');
 
@@ -14,25 +20,25 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true,
   })
   .then(() => console.log('DB connection successful!'));
 
-// Starting the server on port 3000
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
-  console.log(`App running on the port:${port}!`);
-});
-process.on('unhandledRejection', (error) => {
-  // Handle the rejection
-  console.log(error.name, error.message);
-  console.log('UNHANDLED REJECTION!');
-  server.close(() => process.exit(1));
+  console.log(`App running on port ${port}...`);
 });
 
-process.on('uncaughtException', (err) => {
-  // Handle the uncaughtException
+process.on('unhandledRejection', (err) => {
+  console.log('UNHANDLED REJECTION! 💥 Shutting down...');
   console.log(err.name, err.message);
-  console.log('UNCAUGHT EXCEPTION!');
-  server.close(() => process.exit(1));
+  server.close(() => {
+    process.exit(1);
+  });
+});
+
+process.on('SIGTERM', () => {
+  console.log('👋 SIGTERM RECEIVED. Shutting down gracefully');
+  server.close(() => {
+    console.log('💥 Process terminated!');
+  });
 });
