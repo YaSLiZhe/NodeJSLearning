@@ -12283,23 +12283,25 @@ var signup = /*#__PURE__*/function () {
           });
         case 3:
           res = _context.sent;
+          console.log(res.data);
           if (res.data.status === 'success') {
             (0, _alerts.showAlert)('success', 'Sing up successfully!');
             window.setTimeout(function () {
               location.assign('/me');
             }, 1500);
           }
-          _context.next = 10;
+          _context.next = 12;
           break;
-        case 7:
-          _context.prev = 7;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](0);
-          (0, _alerts.showAlert)('error', _context.t0.response.data.message);
-        case 10:
+          (0, _alerts.showAlert)('error', _context.t0);
+          console.log(_context.t0);
+        case 12:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 7]]);
+    }, _callee, null, [[0, 8]]);
   }));
   return function signup(_x, _x2, _x3, _x4) {
     return _ref.apply(this, arguments);
@@ -12562,7 +12564,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59387" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60146" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

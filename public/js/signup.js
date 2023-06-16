@@ -13,7 +13,7 @@ export const signup = async (name, email, password, passwordConfirm) => {
         passwordConfirm,
       },
     });
-
+    console.log(res.data);
     if (res.data.status === 'success') {
       showAlert('success', 'Sing up successfully!');
       window.setTimeout(() => {
@@ -21,6 +21,7 @@ export const signup = async (name, email, password, passwordConfirm) => {
       }, 1500);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('error', err);
+    console.log(err);
   }
 };
