@@ -79,7 +79,7 @@ The website is built using the following technologies and frameworks:
 
 - **Backend**: Express, Node.js
 - **Database**: MongoDB
-- **Frontend**: HTML, CSS, JavaScript (additional frontend frameworks or libraries can be mentioned here)
+- **Frontend**: HTML, CSS, JavaScript, Pug
 - **Payment Integration**: Stripe
 
 ## Getting Started 🏁🔍
