@@ -41,10 +41,10 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
   });
   const url = `${req.protocol}://${req.get('host')}/me`;
-  console.log(url);
+
   const email = new Email(newUser, url);
   await email.sendWelcome();
-  createSendToken(newUser, 201, res);
+  createSendToken(newUser, 200, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
