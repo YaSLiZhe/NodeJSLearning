@@ -35,6 +35,9 @@ _Caption: User reviews section with ratings._
 ![Screenshot 3](/public/img/readme/payment.png)
 _Caption: Tour booking page with Stripe integration._
 
+![Screenshot 4](/public/img/readme/personalinfo.png)
+_Caption: User page providing update individual info functions._
+
 ## Environment Variables 🌐🔧
 
 In order to run the Travel Website locally or in a production environment, you will need to set up the following environment variables:
@@ -71,7 +74,7 @@ Make sure to set up these environment variables correctly before running the app
 
 ## Deployment 🚀
 
-The Travel Website is deployed and accessible at [https://zheli-ba8c9282ae5c.herokuapp.com/](https://zheli-ba8c9282ae5c.herokuapp.com/). It is hosted on Heroku, a cloud platform that enables easy deployment and scaling of web applications.
+The Travel Website is deployed and accessible at [https://zheli-ba8c9282ae5c.herokuapp.com/](https://zheli-ba8c9282ae5c.herokuapp.com/). It is hosted on Heroku, a cloud platform that enables easy deployment and scaling of web applications. You can use test account to get guest functions(Email:aarav@example.com, Password:test1234)
 
 ## Technologies Used 💻🔧
 
