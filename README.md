@@ -26,13 +26,13 @@ The Travel Website showcases the following advantages and technical skills:
 
 Here are some screenshots of the Travel Website:
 
-![Screenshot 1](/public/img/mappostions.png)
+![Screenshot 1](/public/img/readme/mappostions.png)
 _Caption: Map view displaying tour positions._
 
-![Screenshot 2](/public/img/reviews.png)
+![Screenshot 2](/public/img/readme/reviews.png)
 _Caption: User reviews section with ratings._
 
-![Screenshot 3](/public/img/payment.png)
+![Screenshot 3](/public/img/readme/payment.png)
 _Caption: Tour booking page with Stripe integration._
 
 ## Environment Variables 🌐🔧
