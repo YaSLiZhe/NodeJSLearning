@@ -12,6 +12,9 @@ export const signup = async (name, email, password, passwordConfirm) => {
         password,
         passwordConfirm,
       },
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     console.log(res.data);
     if (res.data.status === 'success') {
@@ -21,7 +24,6 @@ export const signup = async (name, email, password, passwordConfirm) => {
       }, 1500);
     }
   } catch (err) {
-    showAlert('error', err);
-    console.log(err);
+    showAlert('error', err.response.data.message);
   }
 };

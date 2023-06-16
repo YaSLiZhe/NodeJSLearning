@@ -12279,6 +12279,9 @@ var signup = /*#__PURE__*/function () {
               email: email,
               password: password,
               passwordConfirm: passwordConfirm
+            },
+            headers: {
+              'Content-Type': 'application/json'
             }
           });
         case 3:
@@ -12290,14 +12293,13 @@ var signup = /*#__PURE__*/function () {
               location.assign('/me');
             }, 1500);
           }
-          _context.next = 12;
+          _context.next = 11;
           break;
         case 8:
           _context.prev = 8;
           _context.t0 = _context["catch"](0);
-          (0, _alerts.showAlert)('error', _context.t0);
-          console.log(_context.t0);
-        case 12:
+          (0, _alerts.showAlert)('error', _context.t0.response.data.message);
+        case 11:
         case "end":
           return _context.stop();
       }
