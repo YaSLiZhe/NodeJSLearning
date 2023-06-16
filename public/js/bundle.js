@@ -12286,9 +12286,9 @@ var signup = /*#__PURE__*/function () {
           });
         case 3:
           res = _context.sent;
-          console.log(res.data);
+          console.log(res.headers);
           if (res.data.status === 'success') {
-            (0, _alerts.showAlert)('success', 'Sing up successfully!');
+            (0, _alerts.showAlert)('success', 'Sign up successfully!');
             window.setTimeout(function () {
               location.assign('/me');
             }, 1500);

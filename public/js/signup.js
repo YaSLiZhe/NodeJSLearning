@@ -16,9 +16,9 @@ export const signup = async (name, email, password, passwordConfirm) => {
         'Content-Type': 'application/json',
       },
     });
-    console.log(res.data);
+    console.log(res.headers);
     if (res.data.status === 'success') {
-      showAlert('success', 'Sing up successfully!');
+      showAlert('success', 'Sign up successfully!');
       window.setTimeout(() => {
         location.assign('/me');
       }, 1500);
