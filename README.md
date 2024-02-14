@@ -74,7 +74,7 @@ Make sure to set up these environment variables correctly before running the app
 
 ## Deployment 🚀
 
-The Travel Website is deployed and accessible at [https://zheli-ba8c9282ae5c.herokuapp.com/](https://zheli-ba8c9282ae5c.herokuapp.com/). It is hosted on Heroku, a cloud platform that enables easy deployment and scaling of web applications. You can use test account to get guest functions(Email:aarav@example.com, Password:test1234)
+The Travel Website is deployed and accessible at [http://34.201.216.178:3000/](http://34.201.216.178:3000/). It is hosted on Heroku, a cloud platform that enables easy deployment and scaling of web applications. You can use test account to get guest functions(Email:test@example.com, Password:00000000)
 
 ## Technologies Used 💻🔧
 
@@ -119,6 +119,6 @@ If you encounter any issues or bugs while using the Travel Website, please submi
 
 If you have any questions, suggestions, or feedback, feel free to contact the project maintainer:
 
-- [Zhe Li](lizhex0825@foxmail.com)
+- [Zhe Li](zheli0726@outlook.com)
 
 Thank you for visiting and using the Travel Website! We hope it enhances your travel experiences and inspires new adventures. ✈️🌟🗺️

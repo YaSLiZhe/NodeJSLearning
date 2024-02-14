@@ -26,6 +26,7 @@ class Email {
   }
 
   async send(templates, subject) {
+    console.log(`${__dirname}/../views/email/${templates}.pug`);
     // Render HTML from Pug template
     const html = pug.renderFile(
       `${__dirname}/../views/email/${templates}.pug`,
